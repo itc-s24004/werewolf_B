@@ -1,0 +1,3 @@
+class gameConfig {
+  constructor(gameConfigJson) {}
+}

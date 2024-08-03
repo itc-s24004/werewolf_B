@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "feather:werewolves_axe",
+      "category": "Items"
+    },
+
+    "components": {
+      "minecraft:hand_equipped": true,
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "werewolves_axe"
+      },
+      "minecraft:display_name": {
+        "value": "人狼の斧"
+      }
+    },
+    "events": {
+    }
+  }
+}

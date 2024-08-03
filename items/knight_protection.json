@@ -1,0 +1,23 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "feather:knight_protection",
+      "category": "Items"
+    },
+
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:foil": true,
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "gold_horse_armor"
+      },
+      "minecraft:display_name": {
+        "value": "騎士の加護"
+      }
+    },
+    "events": {
+    }
+  }
+}

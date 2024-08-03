@@ -1,0 +1,341 @@
+{
+  "format_version": "1.18.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "is_spawnable": false,
+      "is_summonable": false,
+      "is_experimental": false,
+      "properties": {
+        "property:cape": {
+          "range": [ 0, 2 ],
+          "type":"int",
+          "default": 1,
+          "client_sync": true
+        },
+        "property:hat": {
+          "range": [ 0, 10 ],
+          "type":"int",
+          "default": 0,
+          "client_sync": true
+        },
+        "property:clothes": {
+          "range": [ 0, 2 ],
+          "type":"int",
+          "default": 0,
+          "client_sync": true
+        },
+        "property:show_hat": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        },
+        "property:show_jacket": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        },
+        "property:show_sleeve_r": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        },
+        "property:show_sleeve_l": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        },
+        "property:show_pants_r": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        },
+        "property:show_pants_l": {
+          "type":"bool",
+          "default": true,
+          "client_sync": true
+        }
+     }
+    },
+
+    "component_groups": {
+      "minecraft:add_bad_omen": {
+        "minecraft:spell_effects": {
+          "add_effects": [
+            {
+              "effect": "bad_omen",
+              "duration": 6000,
+              "visible": false,
+              "display_on_screen_animation": true
+            }
+          ]
+        },
+        "minecraft:timer": {
+          "time": [ 0.0, 0.0 ],
+          "looping": false,
+          "time_down_event": {
+            "event": "minecraft:clear_add_bad_omen",
+            "target": "self"
+          }
+        }
+      },
+      "minecraft:clear_bad_omen_spell_effect": {
+        "minecraft:spell_effects": {
+        }
+      },
+      "minecraft:raid_trigger": {
+        "minecraft:raid_trigger": {
+          "triggered_event": {
+            "event": "minecraft:remove_raid_trigger",
+            "target": "self"
+          }
+        },
+        "minecraft:spell_effects": {
+          "remove_effects": "bad_omen"
+        }
+      },
+      "feather:show_nametag": {
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": true
+        }
+      },
+      "feather:hide_nametag": {
+        "minecraft:nameable": {
+          "always_show": false,
+          "allow_name_tag_renaming": true
+        }
+      }
+    },
+
+    "components": {
+      //feather------------------------------------
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "entity_attack",
+            "damage_modifier": -9999
+          },
+          {
+            "cause": "projectile",
+            "damage_modifier": -9999
+          },
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:custom_hit_test": {
+        "hitboxes": [
+          {
+            "width": 1.8,//0.6
+            "height": 3.6,//1.8
+            "pivot": [ 0, 0, 0 ]
+          }
+        ]
+      },
+      //feather-------------------------------------
+      "minecraft:experience_reward": {
+        "on_death": "Math.Min(query.player_level * 7, 100)"
+      },
+      "minecraft:type_family": {
+        "family": [ "player" ]
+      },
+      "minecraft:is_hidden_when_invisible": {
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/empty.json"
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,//0.6
+        "height": 1.8//1.8
+      },
+      "minecraft:can_climb": {
+      },
+      "minecraft:movement": {
+        "value": 0.1
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 1
+      },
+      "minecraft:exhaustion_values": {
+        "heal": 0,
+        "jump": 0,
+        "sprint_jump": 0,
+        "mine": 0,
+        "attack": 0,
+        "damage": 0,
+        "walk": 0,
+        "sprint": 0,
+        "swim": 0
+      },
+      "minecraft:player.saturation": {
+        "value": 5,
+         "max": 20
+      },
+      "minecraft:player.exhaustion": {
+        "value": 0,
+        "max": 20
+      },
+      "minecraft:player.level": {
+        "value": 0,
+        "max": 24791
+      },
+      "minecraft:player.experience": {
+        "value": 0,
+        "max": 1
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": -1,
+        "inhale_time": 3.75,
+        "generates_bubbles": false
+      },
+      "minecraft:nameable": {
+        "always_show": false,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:physics": {
+        "push_towards_closest_space": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:insomnia": {
+        "days_until_insomnia": 3
+      },
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "family_types": [
+          "parrot_tame"
+        ],
+        "pull_in_entities": true,
+        "seats": [
+          {
+            "position": [ 0.4, -0.2, -0.1 ],
+            "min_rider_count": 0,
+            "max_rider_count": 0,
+            "lock_rider_rotation": 0
+          },
+          {
+            "position": [ -0.4, -0.2, -0.1 ],
+            "min_rider_count": 1,
+            "max_rider_count": 2,
+            "lock_rider_rotation": 0
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
+      "minecraft:block_climber": {},
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "has_mob_effect",
+                "subject": "self",
+                "value": "bad_omen"
+              },
+              {
+                "test": "is_in_village",
+                "subject": "self",
+                "value": true
+              }
+            ]
+          },
+          "event": "minecraft:trigger_raid"
+        }
+      }
+    },
+
+    "events": {
+      "hat:show": { "set_property": { "property:show_hat": true } },
+      "hat:hide": { "set_property": { "property:show_hat": false } },
+      
+      "jacket:show": { "set_property": { "property:show_jacket": true } },
+      "jacket:hide": { "set_property": { "property:show_jacket": false } },
+      
+      "sleeve_r:show": { "set_property": { "property:show_sleeve_r": true } },
+      "sleeve_r:hide": { "set_property": { "property:show_sleeve_r": false } },
+      
+      "sleeve_l:show": { "set_property": { "property:show_sleeve_l": true } },
+      "sleeve_l:hide": { "set_property": { "property:show_sleeve_l": false } },
+      
+      "pants_r:show": { "set_property": { "property:show_pants_r": true } },
+      "pants_r:hide": { "set_property": { "property:show_pants_r": false } },
+      
+      "pants_l:show": { "set_property": { "property:show_pants_l": true } },
+      "pants_l:hide": { "set_property": { "property:show_pants_l": false } },
+
+
+      "cape:none": { "set_property": { "property:cape": 0 } },
+      "cape:werewolf": { "set_property": { "property:cape": 1 } },
+      "cape:itcollege": { "set_property": { "property:cape": 2 } },
+
+      "hat:none": { "set_property": { "property:hat": 0 } },
+      "hat:sunglasses1": { "set_property": { "property:hat": 1 } },
+      "hat:sunglasses2": { "set_property": { "property:hat": 2 } },
+      "hat:mask_creeper": { "set_property": { "property:hat": 3 } },
+      "hat:mask_wolf": { "set_property": { "property:hat": 4 } },
+      "hat:mask_megaoba": { "set_property": { "property:hat": 5 } },
+
+      "clothes:set0": { "set_property": { "property:clothes": 0 } },
+      "clothes:set1": { "set_property": { "property:clothes": 1 } },
+      "clothes:set2": { "set_property": { "property:clothes": 2 } },
+
+
+
+
+
+
+
+
+
+      "minecraft:gain_bad_omen": {
+        "add": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        }
+      },
+      "minecraft:clear_add_bad_omen": {
+        "remove": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:clear_bad_omen_spell_effect"
+          ]
+        }
+      },
+      "minecraft:trigger_raid": {
+        "add": {
+          "component_groups": [ "minecraft:raid_trigger" ]
+        }
+      },
+      "minecraft:remove_raid_trigger": {
+        "remove": {
+          "component_groups": [ "minecraft:raid_trigger" ]
+        }
+      }
+    }
+  }
+}
+
+
+
+
