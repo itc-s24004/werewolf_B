@@ -1,23 +1,17 @@
 {
-  "format_version": "1.16.100",
+  "format_version": "1.21.0",
   "minecraft:item": {
     "description": {
-      "identifier": "feather:divination",
-      "category": "Items"
+      "identifier": "feather:divination"
     },
 
     "components": {
-      "minecraft:hand_equipped": false,
-      "minecraft:foil": true,
-      "minecraft:max_stack_size": 1,
-      "minecraft:icon": {
-        "texture": "heart_of_the_sea"
-      },
       "minecraft:display_name": {
         "value": "占い師の心"
-      }
-    },
-    "events": {
+      },
+      "minecraft:icon": "heart_of_the_sea",
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": true
     }
   }
 }

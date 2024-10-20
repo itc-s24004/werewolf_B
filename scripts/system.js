@@ -292,6 +292,7 @@ export const gameSystem = new class gameSystem {
       };
       
       this.autoKill();
+      const werewolf = this.queryPlayer({jobId: systemValue.job.werewolf.id, isAlive: true});
       this.queryPlayer({isAlive:true}).forEach(gameplayer => {
         const player = gameplayer.player;
         const input = player.inputPermissions;
@@ -302,7 +303,25 @@ export const gameSystem = new class gameSystem {
             if (!input.movementEnabled) input.movementEnabled = true;
           }
         } catch {}
-      })
+
+
+        const werewolfLocs =  werewolf.map(gameplayer => gameplayer.player.location);
+        if (gameplayer.job == systemValue.job.timeTraveler.id) {
+          werewolfLocs.forEach(loc => {
+            gameplayer.player.spawnParticle("minecraft:raid_omen_emitter", loc);
+          });
+        } else if (gameplayer.job == systemValue.job.werewolf.id) {
+          const {x, y, z} = gameplayer.player.location;
+          werewolfLocs.forEach(loc => {
+            const {x:lx, y:ly, z:lz} = loc;
+            if (lx != x, ly != y, lz != z) {
+              gameplayer.player.spawnParticle("minecraft:raid_omen_emitter", loc);
+            };
+          });
+        };
+
+      });
+
       world.getAllPlayers().forEach(player => {
         if (!(player.name in this.#players) || !this.#players[player.name].isAlive) {
           const input = player.inputPermissions;
@@ -310,7 +329,18 @@ export const gameSystem = new class gameSystem {
             if (!input.movementEnabled) input.movementEnabled = true;
           } catch {}
         }
-      })
+        if (player.getGameMode() == GameMode.spectator) {
+          if (player.getRotation().x >= 85) {
+            const targets = this.queryPlayer({isAlive: true});
+            if (targets) {
+              player.teleport(targets[Math.floor(Math.random() * targets.length)].player.location, {rotation: {x:0, y:0}});
+            };
+          };
+        }
+        player.onScreenDisplay.setActionBar(`ターン終了まで ${Math.ceil((this.#game.time - now)/1000)} 秒`);
+      });
+
+
       
       if(this.#game.timeID == systemValue.game.time.noon.id) {
         world.setTimeOfDay(13000-13000*(this.#game.time-now)/this.#config.time.noon);
@@ -319,9 +349,6 @@ export const gameSystem = new class gameSystem {
         world.setTimeOfDay(23999-10999*(this.#game.time-now)/this.#config.time.night);
 
       };
-      world.getAllPlayers().forEach(player => {
-        player.onScreenDisplay.setActionBar(`ターン終了まで ${Math.ceil((this.#game.time - now)/1000)} 秒`);
-      });
 
 
     } else if (this.#game.status == systemValue.game.status.end) {
@@ -370,12 +397,12 @@ export const gameSystem = new class gameSystem {
     if (this.#config.job.timeTraveler >= 1 && timeTraveler <= 0) {//タイムトラベラー死亡
       return systemValue.job.werewolf.id;
 
-    } else if ((werewolf <= 0 && madman <= 0) || villager <= 0) {//人狼陣営、村人陣営どちらかが全滅
+    } else if ((werewolf <= 0 && madman <= 0) || villager + timeTraveler <= 0) {//人狼陣営、村人陣営どちらかが全滅
 
       if (vampire >= 1) {//吸血鬼の勝利
         return systemValue.job.vampire.id;
 
-      } else if (villager >= 1) {//村人の勝利
+      } else if (villager + timeTraveler >= 1) {//村人の勝利
         return systemValue.job.villager.id;
 
       } else {//人狼の勝利
@@ -484,7 +511,7 @@ export const gameSystem = new class gameSystem {
   MCEV_playerSpawn_(ev) {
     if (!ev.initialSpawn) return;
     try {
-      ev.player.inputPermissions.movementEnabled = true
+      ev.player.inputPermissions.movementEnabled = true;
     } catch {}
     ev.player.setGameMode(this.#game.status == systemValue.game.status.play ? GameMode.spectator : GameMode.adventure);
     ev.player.getComponent("inventory").container.clearAll();
@@ -730,16 +757,20 @@ export const gameSystem = new class gameSystem {
         if (res.selection == 0) {
           function createToken(player) {
             discord.request("authentication", player.name).then(res => {
-              const form = new MessageFormData();
-              form.body(`deiscordの認証チャンネルで認証して下さい\n有効期限は生成から2分です\nTOKEN: ${res.body}`);
-              form.button2("新しいコードを取得");
-              form.button1("閉じる");
-              form.show(player).then(res => {
-                if (res.canceled) return;
-                if (res.selection) {
-                  createToken(player);
-                };
-              });
+              if (res.body) {
+                const form = new MessageFormData();
+                form.body(`deiscordの認証チャンネルで認証して下さい\n有効期限は生成から2分です\nTOKEN: ${res.body}`);
+                form.button2("新しいコードを取得");
+                form.button1("閉じる");
+                form.show(player).then(res => {
+                  if (res.canceled) return;
+                  if (res.selection) {
+                    createToken(player);
+                  };
+                });
+              } else {
+                player.sendMessage("接続がアイムアウトしました\n認証サーバーがオフラインです");
+              };
             });
           };
           createToken(player);
@@ -816,13 +847,13 @@ export const gameSystem = new class gameSystem {
     const item = ev.itemStack;
     const player = ev.source;
     if (player.typeId == "minecraft:player" && player.name in this.#players) {
-      if (item.typeId == "minecraft:cooked_beef") {
-        this.#players[player.name].heal(8)
+      if (item.typeId == "feather:cooked_beef") {
+        this.#players[player.name].heal(8);
       } else if (item.typeId == "feather:invisible_potion") {
         player.addEffect("invisibility", 20*20, {amplifier: 1, showParticles: false});
-      }
-    }
-  }
+      };
+    };
+  };
   /**
    * 
    * @param {Player | Entity} source 

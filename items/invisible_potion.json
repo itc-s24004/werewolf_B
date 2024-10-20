@@ -1,29 +1,28 @@
 {
-  "format_version": "1.16.100",
+  "format_version": "1.21.0",
   "minecraft:item": {
     "description": {
-      "identifier": "feather:invisible_potion",
-      "category": "Equipment"
+      "identifier": "feather:invisible_potion"
     },
 
     "components": {
-      "minecraft:hand_equipped": false,
-      "minecraft:foil": true,
-      "minecraft:max_stack_size": 1,
-      "minecraft:icon": {
-        "texture": "invisible_potion"
-      },
       "minecraft:display_name": {
         "value": "透明化のポーション"
       },
-      "minecraft:use_duration": 1.6,
-      "minecraft:use_animation": "drink",
+      "minecraft:icon": "invisible_potion",
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": true,
+
       "minecraft:food": {
-        "nutrition": 0,
         "can_always_eat": true,
-        "saturation_modifier": "poor"
+        "nutrition": 0,
+        "saturation_modifier": 0
+      },
+      "minecraft:use_animation": "drink",
+      "minecraft:use_modifiers": {
+        "movement_modifier": 0,
+        "use_duration": 3
       }
-    },
-    "events": {}
+    }
   }
 }

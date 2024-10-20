@@ -11,18 +11,51 @@ export class gamePlayer {
   #discordID = undefined;
 
   #player;
-  #Inventory
-  #health = 100;//体力
-  #maxHealth = 100;//最大体力
-  #divination = 0;//占い回数
-  #job = systemValue.job.werewolf.id;//役職
-  #invincible = false;//無敵
-  #knightProtection = 0;//騎士の祈り
-  #revelation = false;//天啓の呪符
-  #grudge = 0;//怨念の槍
-  #grim_geaper = -1//死神の鍵
-  #alive = true;//生存
+  #Inventory;
+  /**
+   * 体力
+   */
+  #health = 100;
+  /**
+   * 最大体力
+   */
+  #maxHealth = 100;
+  /**
+   * 占い回数
+   */
+  #divination = 0;
+  /**
+   * 役職
+   */
+  #job = systemValue.job.werewolf.id;
+  /**
+   * 無敵
+   */
+  #invincible = false;
+  /**
+   * 騎士の祈り
+   */
+  #knightProtection = 0;
+  /**
+   * 天啓の呪符
+   */
+  #revelation = false;
+  /**
+   * 怨念の槍
+   */
+  #grudge = 0;
+  /**
+   * 死神の鍵
+   */
+  #grim_geaper = -1
+  /**
+   * 生存
+   */
+  #alive = true;
   #gameLog = []
+  /**
+   * スタン状態
+   */
   #stun = 0;
   #name
   /**
@@ -37,9 +70,8 @@ export class gamePlayer {
 
     
     discord.request("account", player.name).then(res => {//discordアカウント取得
-      if (res) {
+      if (res.body) {
         player.sendMessage("discordアカウントの取得に成功しました");
-        this.#discordID = res.body;
       } else {
         player.sendMessage("discordアカウントの取得に失敗しました");
       };
@@ -84,7 +116,7 @@ export class gamePlayer {
 
   get isAlive() {
     return this.#alive;
-  }
+  };
   setJob(jobId) {
     if (jobId in systemValue.job) {
       this.#job = jobId;

@@ -30,7 +30,7 @@ export const defaultGameConfigJson = {
     shop: {
       data: {
         common: [
-          {typeId: "minecraft:cooked_beef", amount: 3, durability:0, nameTag: "", price: 1, lore: ["食べると体力を回復する"], name: "ステーキ", icon: "textures/items/beef_cooked"},
+          {typeId: "feather:cooked_beef", amount: 3, durability:0, nameTag: "", price: 1, lore: ["食べると体力を回復する"], name: "ステーキ", icon: "textures/items/beef_cooked"},
           {typeId: "minecraft:bow", amount: 1, durability:0, nameTag: "", price: 2, lore: ["一撃必殺の弓", "一度使うと壊れる"], name: "弓", icon: "textures/items/bow_standby"},
           {typeId: "minecraft:arrow", amount: 1, durability:0, nameTag: "", price: 2, lore: ["一度使うと回収できない"], name: "矢", icon: "textures/items/arrow"},
           {typeId: "minecraft:snowball", amount: 1, durability:0, nameTag: "スタングレネード", price: 2, lore: ["当たったらスタンするグレネード"], name: "スタングレネード", icon: "textures/items/snowball"},

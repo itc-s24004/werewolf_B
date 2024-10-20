@@ -1,23 +1,17 @@
 {
-  "format_version": "1.16.100",
+  "format_version": "1.21.0",
   "minecraft:item": {
     "description": {
-      "identifier": "feather:grim_geaper_s_gey",
-      "category": "Items"
+      "identifier": "feather:grim_geaper_s_gey"
     },
 
     "components": {
-      "minecraft:hand_equipped": false,
-      "minecraft:foil": true,
-      "minecraft:max_stack_size": 1,
-      "minecraft:icon": {
-        "texture": "ominous_trial_key"
-      },
       "minecraft:display_name": {
         "value": "死神の鍵"
-      }
-    },
-    "events": {
+      },
+      "minecraft:icon": "ominous_trial_key",
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": true
     }
   }
 }

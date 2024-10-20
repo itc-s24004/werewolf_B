@@ -1,16 +1,25 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.21.0",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:cooked_beef"
+      "identifier": "feather:cooked_beef"
     },
 
     "components": {
-      "minecraft:use_duration": 32,
+      "minecraft:display_name": {
+        "value": "ステーキ"
+      },
+      "minecraft:icon": "beef_cooked",
+
       "minecraft:food": {
         "can_always_eat": true,
         "nutrition": 0,
-        "saturation_modifier": "poor"
+        "saturation_modifier": 0
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:use_modifiers": {
+        "movement_modifier": 1,
+        "use_duration": 0.8
       }
     }
   }
