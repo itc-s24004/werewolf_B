@@ -168,10 +168,11 @@ export const gameSystem = new class gameSystem {
 
 
 
-    world.sendMessage(`${this.#config.timeTraveler / 100}`);
     if (Math.random() < this.#config.timeTraveler / 100) {//タイムトラベラー発生
       this.#config.job.timeTraveler = 1;
-    };
+    } else {
+      this.#config.job.timeTraveler = 0;
+    }
     Object.keys(this.#players).forEach(playerName => {//プレイヤー一覧削除
       delete this.#players[playerName];
     })
