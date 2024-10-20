@@ -53,7 +53,7 @@ export const gameSystem = new class gameSystem {
       vampire: 0,
       timeTraveler: 0
     },
-    timeTraveler: 0.1,//タイムトラベラー発生確率
+    timeTraveler: 5,//タイムトラベラー発生確率
     escapeDay: 7,
     mapJson: defaultGameConfigJson.defaultMap
   }
@@ -168,7 +168,7 @@ export const gameSystem = new class gameSystem {
 
 
 
-    if (Math.random() < this.#config.timeTraveler) {//タイムトラベラー発生
+    if (Math.random() < this.#config.timeTraveler / 100) {//タイムトラベラー発生
       this.#config.job.timeTraveler = 1;
     };
     Object.keys(this.#players).forEach(playerName => {//プレイヤー一覧削除
