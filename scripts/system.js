@@ -168,6 +168,7 @@ export const gameSystem = new class gameSystem {
 
 
 
+    world.sendMessage(`${this.#config.timeTraveler / 100}`);
     if (Math.random() < this.#config.timeTraveler / 100) {//タイムトラベラー発生
       this.#config.job.timeTraveler = 1;
     };
