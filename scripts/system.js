@@ -377,7 +377,7 @@ export const gameSystem = new class gameSystem {
   };
   get activePlayers() {
     return Object.values(this.#players).filter(gameplayer => {
-      return (gameplayer.isAlive && gameplayer.player.isValid());
+      return (gameplayer.isAlive && gameplayer.player.isValid);
     });
   };
   autoKill() {
@@ -611,7 +611,7 @@ export const gameSystem = new class gameSystem {
 
     if (projectile.typeId == "minecraft:arrow") {//弓矢
       if (!player || !target) {
-        if (projectile.isValid()) {
+        if (projectile.isValid) {
           projectile.remove();
         };
         return;
@@ -779,12 +779,12 @@ export const gameSystem = new class gameSystem {
 
         } else if (res.selection == 1) {
           const form = new ModalFormData();
-          form.slider("人狼", 1, 3, 1, this.#config.job.werewolf);
-          form.slider("共犯者", 0, 3, 1, this.#config.job.madman);
-          form.slider("吸血鬼", 0, 3, 1, this.#config.job.vampire);
-          form.slider("タイムトラベラー(確率)", 0, 100, 5, this.#config.timeTraveler);
-          form.slider("日数制限\n0にすると制限なし", 0, 30, 1, this.#config.escapeDay);
-          form.toggle("スタート", false);
+          form.slider("人狼", 1, 3, {valueStep: 1, defaultValue: this.#config.job.werewolf});
+          form.slider("共犯者", 0, 3, {valueStep: 1, defaultValue: this.#config.job.madman});
+          form.slider("吸血鬼", 0, 3, {valueStep: 1, defaultValue: this.#config.job.vampire});
+          form.slider("タイムトラベラー(確率)", 0, 100, {valueStep: 1, defaultValue: this.#config.timeTraveler});
+          form.slider("日数制限\n0にすると制限なし", 0, 30, {valueStep: 1, defaultValue: this.#config.escapeDay});
+          form.toggle("スタート", {defaultValue: false});
           form.show(player).then(res => {
             if (res.canceled) return;
             this.#config.job.werewolf = res.formValues[0];

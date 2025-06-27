@@ -4,8 +4,11 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { createItem } from "./dataClass/item";
 // import {} from "@minecraft/server-net"
 
+// world.afterEvents.itemUse.subscribe(ev => {
+//     world.sendMessage(ev.itemStack.typeId)
+// })
 
-world.afterEvents.worldInitialize.subscribe(ev => {
+world.afterEvents.worldLoad.subscribe(ev => {
   gameSystem.MCEV_worldInitialize()
 })
 

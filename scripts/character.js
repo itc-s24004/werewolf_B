@@ -39,7 +39,7 @@ class character_form {
     const {title, body, label, type, button} = formData;
     if (type == "toggle") {
       button.forEach(buttondata => {
-        this.#form.toggle(buttondata.text, false);
+        this.#form.toggle(buttondata.text, {defaultValue: false});
       })
     } else if (type == "dropdown") {
       const op = []

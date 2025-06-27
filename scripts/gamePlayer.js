@@ -99,7 +99,7 @@ export class gamePlayer {
     return this.#gameLog.join("\n§r");
   };
   sendMessage(text) {
-    if (this.#player.isValid()) {
+    if (this.#player.isValid) {
       this.#player.sendMessage(text);
     };
   };
